@@ -1,0 +1,62 @@
+<ActionBar>
+    <!-- 
+    Use the NavigationButton as a side-drawer button in Android
+    because ActionItems are shown on the right side of the ActionBar
+    -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <!-- 
+    Use the ActionItem for IOS with position set to left. Using the
+    NavigationButton as a side-drawer button in iOS is not possible,
+    because its function is to always navigate back in the application.
+    -->
+    <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+    <Label text="Nova Solicitação"></Label>
+</ActionBar>
+
+<FlexboxLayout class="page">
+    <StackLayout class="form">
+        <Image class="logo" src="~/assets/logo-branca.png"></Image>
+        <Label class="header" text="e-Destiny"></Label>
+        <Label class="sub-header" text="O destino do seu e-Lixo"></Label>
+
+        <PreviousNextView>
+            <GridLayout rows="auto, auto, auto">
+                <StackLayout row="0" class="input-field">
+                    <TextField class="input" hint="Qual o tipo do material?" 
+                        autocorrect="true"
+                        autocapitalizationType="none" [(ngModel)]="solicitacao.tipoMaterial"
+                        returnKeyType="next" ></TextField>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+
+                <StackLayout row="1" class="input-field">
+                    <TextField class="input" 
+                        hint="Qual é o material que será coletado?" [(ngModel)]="solicitacao.material"
+                        returnKeyType="next"
+                        ></TextField>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+
+                <StackLayout row="2" class="input-field">
+                    <TextField class="input" 
+                        hint="Qual a quantidade?" [(ngModel)]="solicitacao.quantidade"
+                        returnKeyType="done"></TextField>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+
+                <ActivityIndicator rowSpan="3" ></ActivityIndicator>
+            </GridLayout>
+        </PreviousNextView>
+
+        <Button text="Abrir solicitação" 
+            (tap)="submit()" class="btn btn-primary m-t-20"></Button>
+    </StackLayout>
+
+    <Label class="login-label sign-up-label" (tap)="RetornarAoMenu()">
+        <FormattedString>
+            <Span text="Retornar ao menu" class="bold"></Span>
+        </FormattedString>
+    </Label>
+</FlexboxLayout>

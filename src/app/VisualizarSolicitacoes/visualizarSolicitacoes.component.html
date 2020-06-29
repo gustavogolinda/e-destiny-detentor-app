@@ -12,10 +12,14 @@
     <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
         ios.position="left">
     </ActionItem>
-    <Label text="Browse"></Label>
+    <Label text="VisualizarSolicitacoes"></Label>
 </ActionBar>
-
-<GridLayout class="page__content">
-    <Label class="page__content-icon far" text="&#xf1ea;"></Label>
-    <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
-</GridLayout>
+<button text="Teste"></button>
+<ListView items="{{listaSolicitacoes}}" (itemTap)="onItemTap($event)" class="list-group">
+    <ng-template let-solicitacao="item">
+        <GridLayout>
+            <Label [text]="solicitacao.material"></Label>
+            <Label [text]="solicitacao.quantidade"></Label>
+        </GridLayout>
+    </ng-template>
+</ListView>
