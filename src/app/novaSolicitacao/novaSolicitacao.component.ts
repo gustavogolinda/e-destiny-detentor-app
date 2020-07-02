@@ -4,7 +4,7 @@ import * as app from "tns-core-modules/application";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Page } from "tns-core-modules/ui/page";
 import { Solicitacao } from "../solicitacao/solicitacao.model";
-import { alert, prompt } from "tns-core-modules/ui/dialogs";
+import { confirm } from "tns-core-modules/ui/dialogs";
 
 @Component({
     selector: "novaSolicitacao",
@@ -31,12 +31,19 @@ export class NovaSolicitacaoComponent implements OnInit {
         // Init your component properties here.
     }
 
+    confirm(message: string){
+        return confirm({
+            title: "e-Destiny",
+            okButtonText: "OK",
+            message: message
+        })
+    }
+
     submit() {
         let listaDeSolicitacao = require('../listaSolicitacao/listaSolicitacao');
-        console.log(listaDeSolicitacao);
         listaDeSolicitacao.push(this.solicitacao);
-        console.log("Minha solicitação: " + this.solicitacao.tipoMaterial + " - " + this.solicitacao.material);
-        console.log(listaDeSolicitacao);
+        this.confirm("Solicitação aberta com sucesso!");
+        this.routerExtensions.navigate(["/home"], { clearHistory: true });
     }
 
 

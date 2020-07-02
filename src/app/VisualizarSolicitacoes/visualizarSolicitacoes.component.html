@@ -1,5 +1,5 @@
 <FlexboxLayout class="page">
-    <ActionBar class="action-bar" style="background-color: transparent; border: 0; box-shadow: none;">
+    <ActionBar class="action-bar" style="background-color: transparent; border: 0; box-shadow: none !important;" flat="true">
         <!-- <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
         <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
             ios.position="left">
@@ -10,7 +10,7 @@
         <RadListView row="1" [items]="listaItems" verticalAlignment="center" height="100%" [class.visible]="listLoaded">
             <ng-template tkListItemTemplate let-item="item">
                 <StackLayout orientation="vertical">
-                    <Label [text]="item.tipoMaterial" class="p-15" style="background-color: transparent; box-shadow: none"></Label>
+                    <Label [text]="item.tipoMaterial" class="p-15" style="background-color: transparent; box-shadow: none !important" flat="true"></Label>
                 </StackLayout>
             </ng-template>
 
