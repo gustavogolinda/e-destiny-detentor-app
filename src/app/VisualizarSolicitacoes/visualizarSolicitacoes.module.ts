@@ -1,5 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
 import { VisualizarSolicitacoesRoutingModule } from "./visualizarSolicitacoes-routing.module";
 import { VisualizarSolicitacoesComponent } from "./visualizarSolicitacoes.component";
@@ -7,7 +8,8 @@ import { VisualizarSolicitacoesComponent } from "./visualizarSolicitacoes.compon
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        VisualizarSolicitacoesRoutingModule
+        VisualizarSolicitacoesRoutingModule,
+        NativeScriptUIListViewModule
     ],
     declarations: [
         VisualizarSolicitacoesComponent

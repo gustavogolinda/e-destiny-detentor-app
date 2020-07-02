@@ -21,7 +21,7 @@ export class NovaSolicitacaoComponent implements OnInit {
     //     { "tipoMaterial": "Parte de computador", "material": "Memória RAM", "quantidade": 4 }
     // ];
     constructor(private routerExtensions: RouterExtensions, private page: Page) {
-        this.page.actionBarHidden = true;
+        // this.page.actionBarHidden = true;
         this.solicitacao = new Solicitacao;
         // Use the component constructor to inject providers.
     }

@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     public drawer: RadSideDrawer;
     constructor(private routerExtensions: RouterExtensions, private page: Page) {
-        this.page.actionBarHidden = true;
+        // this.page.actionBarHidden = true;
         // Use the component constructor to inject providers.
     }
 

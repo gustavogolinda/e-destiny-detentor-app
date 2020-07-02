@@ -1,25 +1,26 @@
-<ActionBar>
-    <!-- 
-    Use the NavigationButton as a side-drawer button in Android
-    because ActionItems are shown on the right side of the ActionBar
-    -->
-    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
-    <!-- 
-    Use the ActionItem for IOS with position set to left. Using the
-    NavigationButton as a side-drawer button in iOS is not possible,
-    because its function is to always navigate back in the application.
-    -->
-    <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
-        ios.position="left">
-    </ActionItem>
-    <Label text="VisualizarSolicitacoes"></Label>
-</ActionBar>
-<button text="Teste"></button>
-<ListView items="{{listaSolicitacoes}}" (itemTap)="onItemTap($event)" class="list-group">
-    <ng-template let-solicitacao="item">
-        <GridLayout>
-            <Label [text]="solicitacao.material"></Label>
-            <Label [text]="solicitacao.quantidade"></Label>
-        </GridLayout>
-    </ng-template>
-</ListView>
+<FlexboxLayout class="page">
+    <ActionBar class="action-bar" style="background-color: transparent; border: 0; box-shadow: none;">
+        <!-- <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+        <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+            ios.position="left">
+        </ActionItem> -->
+        <Image class="action-bar-logo" src="~/assets/logo-preta.png"></Image>
+    </ActionBar>
+    <GridLayout rows="auto, *" class="page">
+        <RadListView row="1" [items]="listaItems" verticalAlignment="center" height="100%" [class.visible]="listLoaded">
+            <ng-template tkListItemTemplate let-item="item">
+                <StackLayout orientation="vertical">
+                    <Label [text]="item.tipoMaterial" class="p-15" style="background-color: transparent; box-shadow: none"></Label>
+                </StackLayout>
+            </ng-template>
+
+        </RadListView>
+        <!-- <GridLayout *tkListItemSwipeTemplate columns="auto, *, auto" class="gridLayoutLayout">
+            <StackLayout id="delete-view" col="2" class="deleteViewStackLayout" (tap)="onRightSwipeClick($event)">
+                <Label text="delete" class="swipeTemplateLabel" verticalAlignment="center" horizontalAlignment="center"></Label>
+            </StackLayout>
+        </GridLayout> -->
+        <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" row="1" horizontalAlignment="center"
+                verticalAlignment="center"></ActivityIndicator>
+    </GridLayout>
+</FlexboxLayout>

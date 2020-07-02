@@ -1,6 +1,13 @@
 <FlexboxLayout class="page">
+    <ActionBar class="action-bar" style="background-color: transparent; border: 0; box-shadow: none !important;">
+        <!-- <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+        <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+            ios.position="left">
+        </ActionItem> -->
+        <Image class="action-bar-logo" src="~/assets/logo-preta.png"></Image>
+    </ActionBar>
     <StackLayout class="form">
-        <Image class="logo" src="~/assets/logo-branca.png"></Image>
+        <Image class="logo" src="~/assets/logo-preta.png"></Image>
         <Label class="header" text="e-Destiny"></Label>
         <Label class="sub-header" text="O destino do seu e-Lixo"></Label>
 
@@ -11,7 +18,7 @@
                         keyboardType="email" autocorrect="false"
                         autocapitalizationType="none" [(ngModel)]="user.email"
                         returnKeyType="next" (returnPress)="focusPassword()"></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+                    <StackLayout class="hr-dark"></StackLayout>
                 </StackLayout>
 
                 <StackLayout row="1" class="input-field">
@@ -19,14 +26,14 @@
                         hint="Senha" secure="true" [(ngModel)]="user.password"
                         [returnKeyType]="isLoggingIn ? 'done' : 'next'"
                         (returnPress)="focusConfirmPassword()"></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+                    <StackLayout class="hr-dark"></StackLayout>
                 </StackLayout>
 
                 <StackLayout row="2" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #confirmPassword class="input" [isEnabled]="!processing"
                         hint="Confirme sua senha" secure="true" [(ngModel)]="user.confirmPassword"
                         returnKeyType="done"></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+                    <StackLayout class="hr-dark"></StackLayout>
                 </StackLayout>
 
                 <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>
