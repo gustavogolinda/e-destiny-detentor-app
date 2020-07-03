@@ -1,5 +1,5 @@
 export class Solicitacao {
-    tipoMaterial: string;
-    material: string;
+    descricaoMaterial: string;
+    unidadeMedida: string;
     quantidade: number;
 }

@@ -10,7 +10,8 @@
         <RadListView row="1" [items]="listaItems" verticalAlignment="center" height="100%" [class.visible]="listLoaded">
             <ng-template tkListItemTemplate let-item="item">
                 <StackLayout orientation="vertical">
-                    <Label [text]="item.tipoMaterial" class="p-15" style="background-color: transparent; box-shadow: none !important" flat="true"></Label>
+                    <Label text="Solicitação: {{item.descricaoMaterial}} Quantidade: {{item.quantidade}}" style="background-color: transparent; box-shadow: none !important" flat="true"></Label>
+                    <!-- <Label [text]="item.quantidade" style="background-color: transparent; box-shadow: none !important" flat="true"></Label> -->
                 </StackLayout>
             </ng-template>
 

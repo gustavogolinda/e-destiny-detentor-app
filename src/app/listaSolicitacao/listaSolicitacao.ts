@@ -1,7 +1,7 @@
 import { Solicitacao } from "../solicitacao/solicitacao.model";
 
-const listaDeSolicitacao: Solicitacao[] = [{ tipoMaterial: "Partes de computadores", material: "Placa mãe", quantidade: 1 },
-                                    {tipoMaterial: "Partes de computadores", material: "Memória RAM", quantidade: 4},
-                                    {tipoMaterial: "Partes de celulares", material: "Tela", quantidade: 1}];
+const listaDeSolicitacao: Solicitacao[] = [{ descricaoMaterial: "Partes de computadores", unidadeMedida: "UN", quantidade: 1 },
+                                    {descricaoMaterial: "Monitor", unidadeMedida: "UN", quantidade: 4},
+                                    {descricaoMaterial: "Partes de celulares", unidadeMedida: "UN", quantidade: 1}];
 
 module.exports = listaDeSolicitacao;

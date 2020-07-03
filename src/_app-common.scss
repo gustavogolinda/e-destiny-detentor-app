@@ -37,9 +37,29 @@
     }
 }
 
+.label-solicitacao-qtd {
+    vertical-align: center;
+    font-size: 50px;
+}
+
+.btn-rounded-sm {
+    border-color: black;
+    border-radius: 50%;
+    border-width: 2;
+    width:60; 
+    height:60;
+}
+
 // Drawer navigation custom styles
 .nt-drawer__header-image {
     color: const(grey);
+}
+
+.grid-layout {
+    padding-right: 50%;
+    padding-left: 50%;
+    width: 100%; 
+    height: 100;
 }
 
 .action-bar{
@@ -48,4 +68,9 @@
         height: 40;
         font-weight: bold;            
     }
+}
+
+.hr-light {
+    color: black;
+    background-color: black;
 }

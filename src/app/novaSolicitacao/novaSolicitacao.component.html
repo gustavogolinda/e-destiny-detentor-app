@@ -11,26 +11,30 @@
         <PreviousNextView>
             <GridLayout rows="auto, auto, auto">
                 <StackLayout row="0" class="input-field">
-                    <TextField class="input" hint="Qual o tipo do material?" 
+                    <TextField class="input" hint="Descrição do material" 
                         autocorrect="true"
-                        autocapitalizationType="none" [(ngModel)]="solicitacao.tipoMaterial"
+                        autocapitalizationType="none" ngDefaultControl [(ngModel)]="solicitacao.descricaoMaterial"
                         returnKeyType="next" ></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+                    <StackLayout class="hr-light m-b-5"></StackLayout>
                 </StackLayout>
 
                 <StackLayout row="1" class="input-field">
                     <TextField class="input" 
-                        hint="Qual é o material que será coletado?" [(ngModel)]="solicitacao.material"
+                        hint="Selecione a unidade de medida" ngDefaultControl [(ngModel)]="solicitacao.unidadeMedida"
                         returnKeyType="next"
                         ></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+                    <StackLayout class="hr-light m-b-5"></StackLayout>
                 </StackLayout>
 
-                <StackLayout row="2" class="input-field">
-                    <TextField class="input" 
-                        hint="Qual a quantidade?" [(ngModel)]="solicitacao.quantidade"
-                        returnKeyType="done"></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+                <StackLayout row="2">
+                    <!-- <label class="hr-light" text="Informe a quantidade:"></label> -->
+                    <GridLayout columns="*, auto, *" class="grid-layout">
+                        <Image row="0" src="~/assets/minus.png" stretch="aspectFill" class="btn-rounded-sm left" style="padding: 47" col=0 (onTap)="subtrair()"></Image> 
+                        <TextView editable="false" class="label-solicitacao-qtd"
+                            hint="0" ngDefaultControl [(ngModel)]="solicitacao.quantidade" col=1
+                        ></TextView>
+                        <Image row="0" src="~/assets/add.png" strech="aspectFill" class="btn-rounded-sm right" col=2 (onTap)="adicionar()"></Image>    
+                    </GridLayout> 
                 </StackLayout>
 
                 <ActivityIndicator rowSpan="3" ></ActivityIndicator>

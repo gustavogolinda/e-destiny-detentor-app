@@ -10,27 +10,26 @@
 
         <PreviousNextView>
             <GridLayout rows="auto, auto, auto">
-                <StackLayout row="0" class="input-field">
+                <StackLayout row="0" class="input">
                     <TextField class="input" hint="Email" [isEnabled]="!processing"
                         keyboardType="email" autocorrect="false"
                         autocapitalizationType="none" [(ngModel)]="user.email"
                         returnKeyType="next" (returnPress)="focusPassword()"></TextField>
-                    <StackLayout class="hr-dark"></StackLayout>
                 </StackLayout>
 
-                <StackLayout row="1" class="input-field">
+                <StackLayout row="1" class="input">
                     <TextField #password class="input" [isEnabled]="!processing"
                         hint="Senha" secure="true" [(ngModel)]="user.password"
                         [returnKeyType]="isLoggingIn ? 'done' : 'next'"
                         (returnPress)="focusConfirmPassword()"></TextField>
-                    <StackLayout class="hr-dark"></StackLayout>
+                    <StackLayout class="hr-light m-b-5"></StackLayout>
                 </StackLayout>
 
                 <StackLayout row="2" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #confirmPassword class="input" [isEnabled]="!processing"
                         hint="Confirme sua senha" secure="true" [(ngModel)]="user.confirmPassword"
                         returnKeyType="done"></TextField>
-                    <StackLayout class="hr-dark"></StackLayout>
+                    <StackLayout class="hr-light m-b-5"></StackLayout>
                 </StackLayout>
 
                 <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>

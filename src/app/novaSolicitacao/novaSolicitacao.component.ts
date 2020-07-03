@@ -16,19 +16,26 @@ export class NovaSolicitacaoComponent implements OnInit {
 
     public drawer: RadSideDrawer;
     solicitacao: Solicitacao;
-    //     { "tipoMaterial": "Parte de computador", "material": "Placa-mãe", "quantidade": 1 },
-    //     { "tipoMaterial": "Parte de celular", "material": "Celular inteiro", "quantidade": 1 },
-    //     { "tipoMaterial": "Parte de computador", "material": "Memória RAM", "quantidade": 4 }
-    // ];
     constructor(private routerExtensions: RouterExtensions, private page: Page) {
         // this.page.actionBarHidden = true;
         this.solicitacao = new Solicitacao;
+        this.solicitacao.quantidade = 1;
         // Use the component constructor to inject providers.
     }
 
     ngOnInit(): void {
         
         // Init your component properties here.
+    }
+
+    adicionar() {
+        this.solicitacao.quantidade++;
+    }
+
+    subtrair() {
+        if (this.solicitacao.quantidade > 1) {
+            this.solicitacao.quantidade--;
+        }
     }
 
     confirm(message: string){
