@@ -4,7 +4,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
 import { filter } from "rxjs/operators";
 import * as app from "tns-core-modules/application";
-import { Solicitacao } from "./solicitacao/solicitacao.model";
+import { Solicitacao } from "../model/solicitacao/solicitacao.model";
 
 @Component({
     selector: "ns-app",

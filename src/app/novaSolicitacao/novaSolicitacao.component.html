@@ -9,34 +9,76 @@
     <StackLayout class="form">
 
         <PreviousNextView>
-            <GridLayout rows="auto, auto, auto">
-                <StackLayout row="0" class="input-field">
-                    <TextField class="input" hint="Descrição do material" 
-                        autocorrect="true"
-                        autocapitalizationType="none" ngDefaultControl [(ngModel)]="solicitacao.descricaoMaterial"
-                        returnKeyType="next" ></TextField>
-                    <StackLayout class="hr-light m-b-5"></StackLayout>
-                </StackLayout>
+            <GridLayout rows="*, auto, auto">
+                <StackLayout orientation="vertical" class="stack-form">
+                    <GridLayout rows="*, *, *, *">
+                        <StackLayout row="0" class="stack-item">
+                            <TextField class="input" hint="Descrição do material" 
+                                autocorrect="true"
+                                ngDefaultControl [(ngModel)]="residuo.descricao"
+                                returnKeyType="next" ></TextField>
+                        </StackLayout>
+        
+                        <StackLayout row="1" class="stack-item">
+                            <DropDown 
+                                    itemsTextAlignment="center"
+                                    [items]="unidadesMedida"
+                                    [(ngModel)]="residuo.unidadeMedida"
+                                    (selectedIndexChanged)="onchange($event)"
+                                    row="0"
+                                    colSpan="2"></DropDown>
+                        </StackLayout>
 
-                <StackLayout row="1" class="input-field">
-                    <TextField class="input" 
-                        hint="Selecione a unidade de medida" ngDefaultControl [(ngModel)]="solicitacao.unidadeMedida"
-                        returnKeyType="next"
-                        ></TextField>
-                    <StackLayout class="hr-light m-b-5"></StackLayout>
-                </StackLayout>
+                        <StackLayout row="2" class="stack-item">
+                            <TextField class="input" 
+                                hint="Informe a quantidade do material" ngDefaultControl [(ngModel)]="residuo.quantidade"
+                                returnKeyType="next"
+                                ></TextField>
+                        </StackLayout>
 
-                <StackLayout row="2">
-                    <!-- <label class="hr-light" text="Informe a quantidade:"></label> -->
-                    <GridLayout columns="*, auto, *" class="grid-layout">
-                        <Image row="0" src="~/assets/minus.png" stretch="aspectFill" class="btn-rounded-sm left" style="padding: 47" col=0 (onTap)="subtrair()"></Image> 
-                        <TextView editable="false" class="label-solicitacao-qtd"
-                            hint="0" ngDefaultControl [(ngModel)]="solicitacao.quantidade" col=1
-                        ></TextView>
-                        <Image row="0" src="~/assets/add.png" strech="aspectFill" class="btn-rounded-sm right" col=2 (onTap)="adicionar()"></Image>    
-                    </GridLayout> 
+                        <StackLayout row="3" class="stack-item">
+                            <Button text="Adicionar material" 
+                                (tap)="addMaterial()" class="btn btn-primary m-t-20"></Button>
+                        </StackLayout>
+                    </GridLayout>
                 </StackLayout>
+                <RadListView row="1" [items]="solicitacao.residuos" verticalAlignment="center" height="40%" [class.visible]="listLoaded">
+                    <ng-template tkListItemTemplate let-residuo="item">
+                        <StackLayout orientation="vertical">
+                            <GridLayout rows="auto, auto, auto, auto">
+                                <StackLayout row="0">
+                                    <TextField class="input" hint="Descrição do material" 
+                                        autocorrect="true"
+                                        ngDefaultControl [(ngModel)]="residuo.descricao"
+                                        returnKeyType="next" ></TextField>
+                                    <StackLayout class="hr-light m-b-5"></StackLayout>
+                                </StackLayout>
+                
+                                <StackLayout row="1">
+                                    <TextField class="input" 
+                                        hint="Selecione a unidade de medida" ngDefaultControl [(ngModel)]="residuo.unidadeMedida"
+                                        returnKeyType="next"
+                                        ></TextField>
+                                    <StackLayout class="hr-light m-b-5"></StackLayout>
+                                </StackLayout>
 
+                                <StackLayout row="2">
+                                    <TextField class="input" 
+                                        hint="Informe a quantidade do material" ngDefaultControl [(ngModel)]="residuo.quantidade"
+                                        returnKeyType="next"
+                                        ></TextField>
+                                    <StackLayout class="hr-light m-b-5"></StackLayout>
+                                </StackLayout>
+
+                                <StackLayout row="3">
+                                    <Button text="Adicionar material" 
+                                        (tap)="addMaterial()" class="btn btn-primary m-t-20"></Button>
+                                </StackLayout>
+                            </GridLayout>
+                        </StackLayout>
+                    </ng-template>
+        
+                </RadListView>
                 <ActivityIndicator rowSpan="3" ></ActivityIndicator>
             </GridLayout>
         </PreviousNextView>

@@ -4,8 +4,9 @@ import * as app from "tns-core-modules/application";
 import { Page } from "tns-core-modules/ui/page";
 import { ListViewEventData, RadListView } from "nativescript-ui-listview";
 import { View } from "tns-core-modules/ui/core/view";
-import { Solicitacao } from "../solicitacao/solicitacao.model";
+import { Solicitacao } from "../../model/solicitacao/solicitacao.model";
 import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array";
+import { listaDeSolicitacao } from "../listaSolicitacao/listaSolicitacao";
 
 @Component({
     selector: "VisualizarSolicitacoes",
@@ -15,11 +16,12 @@ import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-a
 export class VisualizarSolicitacoesComponent implements OnInit {
 
     public listaItems: ObservableArray<any>;
-    listaSolicitacoes = require('../listaSolicitacao/listaSolicitacao');
+    listaSolicitacoes: listaDeSolicitacao;
     isLoading = false;
     listLoaded = false;
 
     constructor(private page: Page) {
+        this.listaSolicitacoes = new listaDeSolicitacao();
         // this.page.actionBarHidden = true;
         // const vm = fromObject({
         // // Setting the listview binding source
@@ -33,7 +35,8 @@ export class VisualizarSolicitacoesComponent implements OnInit {
 
     ngOnInit(): void {
         this.isLoading = true;
-        this.listaItems = new ObservableArray(this.listaSolicitacoes);
+        this.listaItems = new ObservableArray(this.listaSolicitacoes.solicitacao);
+        // console.log(this.listaSolicitacoes);
         console.log(this.listaItems.getItem(0));
         this.isLoading = false;
         this.listLoaded = true;
@@ -76,9 +79,9 @@ export class VisualizarSolicitacoesComponent implements OnInit {
     }
 
     delete(args: ListViewEventData) {
-        let solicitacao = <Solicitacao>args.object.bindingContext;
-        let index = this.listaSolicitacoes.indexOf(solicitacao);
-        this.listaSolicitacoes.splice(index, 1);
+        // let solicitacao = <Solicitacao>args.object.bindingContext;
+        // let index = this.listaSolicitacoes.indexOf(solicitacao);
+        // this.listaSolicitacoes.splice(index, 1);
     }
 
     onDrawerButtonTap(): void {

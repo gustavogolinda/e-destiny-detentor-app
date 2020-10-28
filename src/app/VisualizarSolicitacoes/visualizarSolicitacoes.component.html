@@ -7,20 +7,15 @@
         <Image class="action-bar-logo" src="~/assets/logo-preta.png"></Image>
     </ActionBar>
     <GridLayout rows="auto, *" class="page">
-        <RadListView row="1" [items]="listaItems" verticalAlignment="center" height="100%" [class.visible]="listLoaded">
+        <RadListView row="1" [items]="listaItems" verticalAlignment="center" height="90%" width="95%" [class.visible]="listLoaded">
             <ng-template tkListItemTemplate let-item="item">
-                <StackLayout orientation="vertical">
-                    <Label text="Solicitação: {{item.descricaoMaterial}} Quantidade: {{item.quantidade}}" style="background-color: transparent; box-shadow: none !important" flat="true"></Label>
-                    <!-- <Label [text]="item.quantidade" style="background-color: transparent; box-shadow: none !important" flat="true"></Label> -->
-                </StackLayout>
+                <GridLayout rows="*, auto, auto" class="solicitacao-container"> 
+                    <Label class="lbl-no-border h2" row="0" text ="Solicitação: {{item.id}}"></Label>
+                    <Label class="lbl-no-border h3" row="1" text="Situação: {{item.situacao}}"></Label>
+                    <Label class="lbl-no-border h3" row="2" text="Quantidade de materiais na Solicitação: {{item.residuos.length}}"></Label>
+                </GridLayout>
             </ng-template>
-
         </RadListView>
-        <!-- <GridLayout *tkListItemSwipeTemplate columns="auto, *, auto" class="gridLayoutLayout">
-            <StackLayout id="delete-view" col="2" class="deleteViewStackLayout" (tap)="onRightSwipeClick($event)">
-                <Label text="delete" class="swipeTemplateLabel" verticalAlignment="center" horizontalAlignment="center"></Label>
-            </StackLayout>
-        </GridLayout> -->
         <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" row="1" horizontalAlignment="center"
                 verticalAlignment="center"></ActivityIndicator>
     </GridLayout>

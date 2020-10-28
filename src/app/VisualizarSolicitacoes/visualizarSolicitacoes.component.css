@@ -1,8 +1,6 @@
 
 Label {
     background-color: rgb(223, 223, 223);
-    border-bottom-width: 1;
-    border-bottom-color: gray;
 }
 .delete-view {
     background-color: #CB1D00;
@@ -29,4 +27,19 @@ Label {
 .page {
     align-items: center;
     flex-direction: column;
+}
+
+.lbl-no-border{
+    border: 0px;
+    border-color: transparent;
+    margin: 0px;
+}
+
+.solicitacao-container{
+    margin: 10px;
+    padding: 10px;
+    border-color: transparent;
+    border-radius: 10;
+    border-width: 1;
+    background-color: rgb(223, 223, 223);
 }

@@ -1,55 +1,40 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 import { RouterExtensions } from "nativescript-angular/router";
-import { Page } from "tns-core-modules/ui/page";
-import { Solicitacao } from "../solicitacao/solicitacao.model";
-import { confirm } from "tns-core-modules/ui/dialogs";
+import { EventData, Page } from "tns-core-modules/ui/page";
+import { Solicitacao } from "../../model/solicitacao/solicitacao.model";
+import { Residuo } from "../../model/residuo/residuo.model";
+import { Utils } from "../utils/utils";
+import { SelectedIndexChangedEventData } from "nativescript-drop-down";
 
 @Component({
     selector: "novaSolicitacao",
     templateUrl: "./novaSolicitacao.component.html",
-    styleUrls: ['../login/login.component.css']
+    styleUrls: ['../login/login.component.css', "./novaSolicitacao.component.css"]
 })
 
 export class NovaSolicitacaoComponent implements OnInit {
-
     public drawer: RadSideDrawer;
     solicitacao: Solicitacao;
+    residuo: Residuo;
+    utils: Utils;
+    unidadesMedida = ['UN', 'KG'];
     constructor(private routerExtensions: RouterExtensions, private page: Page) {
         // this.page.actionBarHidden = true;
-        this.solicitacao = new Solicitacao;
-        this.solicitacao.quantidade = 1;
-        // Use the component constructor to inject providers.
+        this.utils = new Utils();
+        this.residuo = new Residuo();
+        this.solicitacao = new Solicitacao();
     }
 
     ngOnInit(): void {
         
-        // Init your component properties here.
-    }
-
-    adicionar() {
-        this.solicitacao.quantidade++;
-    }
-
-    subtrair() {
-        if (this.solicitacao.quantidade > 1) {
-            this.solicitacao.quantidade--;
-        }
-    }
-
-    confirm(message: string){
-        return confirm({
-            title: "e-Destiny",
-            okButtonText: "OK",
-            message: message
-        })
     }
 
     submit() {
-        let listaDeSolicitacao = require('../listaSolicitacao/listaSolicitacao');
-        listaDeSolicitacao.push(this.solicitacao);
-        this.confirm("Solicitação aberta com sucesso!");
+        // let solicitacao = new Solicitacao(this.residuo);
+        // listaDeSolicitacao.push(this.solicitacao);
+        this.utils.confirm("Solicitação aberta com sucesso!");
         this.routerExtensions.navigate(["/home"], { clearHistory: true });
     }
 
@@ -68,5 +53,18 @@ export class NovaSolicitacaoComponent implements OnInit {
     onDrawerButtonTap(): void {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.showDrawer();
+    }
+
+    addMaterial(){
+        if (!(this.residuo.quantidade > 0) || !(this.residuo.unidadeMedida) || !(this.residuo.descricao)){
+            this.utils.alert("Atenção! É necessário preencher todos os campos antes de adicionar um resíduo!");
+            return;
+        }
+        this.solicitacao.residuos.push(this.residuo);
+        console.log(this.solicitacao);
+    }
+
+    onChange(args: SelectedIndexChangedEventData){
+        this.residuo.unidadeMedida = this.unidadesMedida[args.newIndex];
     }
 }

@@ -3,8 +3,7 @@ import { NativeScriptCommonModule } from "nativescript-angular/common";
 
 import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
-import { UserService } from "../usuario/usuario.service";
-import { KinveyModule, UserService as KinveyUserService } from "kinvey-nativescript-sdk/lib/angular";
+import { UserService } from "../../services/usuario/usuario.service";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
 
@@ -13,11 +12,6 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
         NativeScriptCommonModule,
         NativeScriptFormsModule,
         LoginRoutingModule,
-
-        KinveyModule.init({
-            appKey: "",
-            appSecret: ""
-        })
     ],
     declarations: [
         LoginComponent

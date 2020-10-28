@@ -9,29 +9,42 @@
     <StackLayout class="form">
 
         <PreviousNextView>
-            <GridLayout rows="auto, auto, auto">
+            <GridLayout rows="auto,auto,auto,auto,auto">
                 <StackLayout row="0" class="input">
-                    <TextField class="input" hint="Email" [isEnabled]="!processing"
+                    <TextField class="input" *ngIf="!isLoggingIn" hint="Informe seu nome completo" 
+                        [isEnabled]="!processing"
+                        autocapitalizationType="words" [(ngModel)]="user.nome"
+                        returnKeyType="next" (returnPress)="focusEmail()"></TextField>
+                </StackLayout>
+
+                <StackLayout row="1" class="input">
+                    <TextField #email class="input" hint="Email" [isEnabled]="!processing"
                         keyboardType="email" autocorrect="false"
                         autocapitalizationType="none" [(ngModel)]="user.email"
                         returnKeyType="next" (returnPress)="focusPassword()"></TextField>
                 </StackLayout>
 
-                <StackLayout row="1" class="input">
+                <StackLayout row="2" class="input">
                     <TextField #password class="input" [isEnabled]="!processing"
-                        hint="Senha" secure="true" [(ngModel)]="user.password"
+                        hint="Senha" secure="true" [(ngModel)]="user.senha"
                         [returnKeyType]="isLoggingIn ? 'done' : 'next'"
-                        (returnPress)="focusConfirmPassword()"></TextField>
+                        (returnPress)="isLoggingIn ? focusConfirmPassword() : validarSenhaPreenchida()"></TextField>
                     <StackLayout class="hr-light m-b-5"></StackLayout>
                 </StackLayout>
 
-                <StackLayout row="2" *ngIf="!isLoggingIn" class="input-field">
-                    <TextField #confirmPassword class="input" [isEnabled]="!processing"
-                        hint="Confirme sua senha" secure="true" [(ngModel)]="user.confirmPassword"
+                <StackLayout row="3" *ngIf="!isLoggingIn" class="input">
+                    <TextField #confirmPassword class="input" secure="true" [isEnabled]="!processing"
+                        hint="Confirme sua senha" [(ngModel)]="user.confirmaSenha" (returnPress)="focusTelefone()"
+                        returnKeyType="next"></TextField>
+                    <StackLayout class="hr-light m-b-5"></StackLayout>
+                </StackLayout>
+
+                <StackLayout row="4" *ngIf="!isLoggingIn" class="input-field">
+                    <TextField #telefone class="input" [isEnabled]="!processing"
+                        hint="Informe seu telefone" [(ngModel)]="user.telefone"
                         returnKeyType="done"></TextField>
                     <StackLayout class="hr-light m-b-5"></StackLayout>
                 </StackLayout>
-
                 <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>
             </GridLayout>
         </PreviousNextView>
