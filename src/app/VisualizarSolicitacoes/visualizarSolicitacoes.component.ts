@@ -6,86 +6,102 @@ import { ListViewEventData, RadListView } from "nativescript-ui-listview";
 import { View } from "tns-core-modules/ui/core/view";
 import { Solicitacao } from "../../model/solicitacao/solicitacao.model";
 import { ObservableArray, ChangedData } from "tns-core-modules/data/observable-array";
-import { listaDeSolicitacao } from "../listaSolicitacao/listaSolicitacao";
+import { SolicitacaoService } from "~/services/solicitacao/solicitacao.service";
+import { UserService } from "~/services/usuario/usuario.service";
+import { AuthService } from "../seguranca/auth.service";
+import { RouterExtensions } from "nativescript-angular/router";
+import { ActivatedRoute, NavigationExtras } from "@angular/router";
+import { Utils } from "../utils/utils";
+import { ItemEventData } from "tns-core-modules/ui/list-view";
 
 @Component({
     selector: "VisualizarSolicitacoes",
     templateUrl: "./visualizarSolicitacoes.component.html",
-    styleUrls: ['./visualizarSolicitacoes.component.css']
+    styleUrls: ["./visualizarSolicitacoes.component.css", "../login/login.component.css"]
 })
 export class VisualizarSolicitacoesComponent implements OnInit {
 
     public listaItems: ObservableArray<any>;
-    listaSolicitacoes: listaDeSolicitacao;
+    listaSolicitacoes: Array<Solicitacao>;
     isLoading = false;
     listLoaded = false;
+    utils: Utils;
+    totalRegistros: number;
+    appSettings = require("tns-core-modules/application-settings");
 
-    constructor(private page: Page) {
-        this.listaSolicitacoes = new listaDeSolicitacao();
-        // this.page.actionBarHidden = true;
-        // const vm = fromObject({
-        // // Setting the listview binding source
-        // listaSolicitacoes
-        // });
-        // this.page.bindingContext = vm;
-        // console.log(vm);
-        // console.log(listaSolicitacoes);
-        // console.log(this.listaSolicitacoes);
+    constructor(private routerExtensions: RouterExtensions,  private route: ActivatedRoute, private page: Page, private solicitacaoService: SolicitacaoService, private userService: UserService, private authService: AuthService) {
+        this.utils = new Utils();
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
         this.isLoading = true;
-        this.listaItems = new ObservableArray(this.listaSolicitacoes.solicitacao);
+        console.log('Teste');
+        await this.solicitacaoService.buscarSolicitacoesPorUsuario(this.authService.jwtPayload['user_name'])
+        .then(resultado => {
+            console.log(resultado);
+            this.listaSolicitacoes = resultado;
+        })
+        .catch(resultado => {
+            this.utils.alert("Atenção! Não foi possível obter os dados, tente novamente em alguns minutos.")
+            this.routerExtensions.navigate(["/home"], { clearHistory: true });
+        });
+        console.log('Teste 2');
+
+        if (this.totalRegistros == 0){
+            this.utils.alert("Atenção! Não foi possível encontrar nenhuma solicitação para o usuário logado.");
+            this.routerExtensions.navigate(["/home"], { clearHistory: true });
+        }
+        this.listaItems = new ObservableArray(this.listaSolicitacoes);
         // console.log(this.listaSolicitacoes);
         console.log(this.listaItems.getItem(0));
         this.isLoading = false;
         this.listLoaded = true;
     }
 
-    onSwipeCellStarted(args: ListViewEventData) {
-        var swipeLimits = args.data.swipeLimits;
-        var swipeView = args.object;
-        var rightItem = swipeView.getViewById<View>("delete-view");
-        swipeLimits.right = rightItem.getMeasuredWidth();
-        swipeLimits.left = 0;
-        swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
+    onItemTap(args: ItemEventData) {        
+        let navigationExtras: NavigationExtras = {
+            queryParams: {
+                DataList: JSON.stringify(this.listaSolicitacoes[args.index]),
+                visualizandoSolicitacao: true,
+                clearHistory: false
+            } 
+        };
+        this.routerExtensions.navigate(["/novaSolicitacao"], navigationExtras);
     }
 
-    onCellSwiping(args: ListViewEventData) {
-        // var swipeLimits = args.data.swipeLimits;
-        // var swipeView = args.object;
-        // var rightItem = swipeView.getViewById<View>("delete-view");
-        // swipeLimits.right = rightItem.getMeasuredWidth();
-        // swipeLimits.left = 0;
-        // swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
+    public onCellSwiping(args: ListViewEventData) {
+    }
+    // << angular-listview-swipe-action-release-notify
+
+    // >> angular-listview-swipe-action-release-limits
+    public onSwipeCellStarted(args: ListViewEventData) {
+        const swipeLimits = args.data.swipeLimits;
+        const swipeView = args['object'];
+        const leftItem = swipeView.getViewById<View>('mark-view');
+        const rightItem = swipeView.getViewById<View>('delete-view');
+    
+        swipeLimits.left = rightItem.getMeasuredWidth();
+        // swipeLimits.right = 0;
+        // swipeLimits.threshold = leftItem.getMeasuredWidth() / 2;
+    }
+    // << angular-listview-swipe-action-release-limits
+
+    // >> angular-listview-swipe-action-release-execute
+    public onSwipeCellFinished(args: ListViewEventData) {
     }
 
-    onRightSwipeClick(args: ListViewEventData) {
-        // var swipeLimits = args.data.swipeLimits;
-        // var swipeView = args.object;
-        // var rightItem = swipeView.getViewById<View>("delete-view");
-        // swipeLimits.right = rightItem.getMeasuredWidth();
-        // swipeLimits.left = 0;
-        // swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
-    }
-
-    onSwipeCellFinished(args: ListViewEventData) {
-        // var swipeLimits = args.data.swipeLimits;
-        // var swipeView = args.object;
-        // var rightItem = swipeView.getViewById<View>("delete-view");
-        // swipeLimits.right = rightItem.getMeasuredWidth();
-        // swipeLimits.left = 0;
-        // swipeLimits.threshold = rightItem.getMeasuredWidth() / 2;
-    }
-
-    delete(args: ListViewEventData) {
-        // let solicitacao = <Solicitacao>args.object.bindingContext;
-        // let index = this.listaSolicitacoes.indexOf(solicitacao);
-        // this.listaSolicitacoes.splice(index, 1);
+    public async onRightSwipeClick(args: ListViewEventData) {
+        let index = this.listaSolicitacoes.indexOf(args.object.bindingContext);
+        this.listaSolicitacoes.splice(index, 1);
+        this.listaItems.splice(index,1);
     }
 
     onDrawerButtonTap(): void {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.showDrawer();
+    }
+
+    RetornarAoMenu(){
+        this.routerExtensions.navigate(["/home"], { clearHistory: true });
     }
 }

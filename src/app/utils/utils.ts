@@ -12,7 +12,8 @@ export class Utils {
     confirm(message: string){
         return confirm({
             title: "e-Destiny",
-            okButtonText: "OK",
+            cancelButtonText: "Não",
+            okButtonText: "Sim",
             message: message
         })
     }

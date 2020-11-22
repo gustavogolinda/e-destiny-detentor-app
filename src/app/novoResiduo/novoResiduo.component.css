@@ -1,0 +1,28 @@
+.stack-form {
+  background-color: cornsilk;
+  height: 30%;
+}
+
+.stack-item {
+  margin-bottom: 0;
+}
+
+
+.label-solicitacao-qtd {
+  vertical-align: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+button {
+  width: 80%
+}
+
+.drop-down {
+  font-size: 17px;
+  padding: 10px;
+  border-color: transparent;
+  border-radius: 10;
+  border-width: 1;
+  width: 95%;
+}

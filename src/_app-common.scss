@@ -37,11 +37,6 @@
     }
 }
 
-.label-solicitacao-qtd {
-    vertical-align: center;
-    font-size: 50px;
-}
-
 .btn-rounded-sm {
     border-color: black;
     border-radius: 50%;
@@ -70,7 +65,30 @@
     }
 }
 
+.left {
+    align-self: left;
+}
+
+.right {
+    align-self: right;
+}
+
 .hr-light {
     color: black;
     background-color: black;
+}
+
+.lbl-no-border{
+    border: 0px;
+    border-color: transparent;
+    margin: 0px;
+}
+
+.card-container{
+    margin: 10px;
+    padding: 10px;
+    border-color: transparent;
+    border-radius: 10;
+    border-width: 1;
+    background-color: rgb(223, 223, 223);
 }

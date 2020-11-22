@@ -4,6 +4,11 @@ import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angul
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { AuthService } from "./seguranca/auth.service";
+import { HttpClientModule } from '@angular/common/http';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { UserService } from "~/services/usuario/usuario.service";
+import { SolicitacaoService } from "~/services/solicitacao/solicitacao.service";
 
 @NgModule({
     bootstrap: [
@@ -12,10 +17,19 @@ import { AppComponent } from "./app.component";
     imports: [
         AppRoutingModule,
         NativeScriptModule,
-        NativeScriptUISideDrawerModule
+        NativeScriptUISideDrawerModule,
+        HttpClientModule
     ],
     declarations: [
         AppComponent
+    ],
+    providers:[
+        AuthService,
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+        JwtHelperService,
+        UserService,
+        SolicitacaoService
+        
     ],
     schemas: [
         NO_ERRORS_SCHEMA

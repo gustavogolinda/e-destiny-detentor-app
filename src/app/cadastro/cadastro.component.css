@@ -15,7 +15,6 @@
     height: 70;
     font-weight: bold;
   }
-  
   .header {
     horizontal-align: center;
     font-size: 25;
@@ -37,6 +36,11 @@
   .input-field {
     margin-bottom: 20;
   }
+
+  .singleRow{
+    width: 100%;
+  }
+
   .input {
     font-size: 18;
     placeholder-color: #474747;

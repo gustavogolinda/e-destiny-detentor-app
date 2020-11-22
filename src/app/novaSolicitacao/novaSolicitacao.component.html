@@ -6,90 +6,50 @@
         </ActionItem> -->
         <Image class="action-bar-logo" src="~/assets/logo-preta.png"></Image>
     </ActionBar>
-    <StackLayout class="form">
-
-        <PreviousNextView>
-            <GridLayout rows="*, auto, auto">
-                <StackLayout orientation="vertical" class="stack-form">
-                    <GridLayout rows="*, *, *, *">
-                        <StackLayout row="0" class="stack-item">
-                            <TextField class="input" hint="Descrição do material" 
-                                autocorrect="true"
-                                ngDefaultControl [(ngModel)]="residuo.descricao"
-                                returnKeyType="next" ></TextField>
-                        </StackLayout>
-        
-                        <StackLayout row="1" class="stack-item">
-                            <DropDown 
-                                    itemsTextAlignment="center"
-                                    [items]="unidadesMedida"
-                                    [(ngModel)]="residuo.unidadeMedida"
-                                    (selectedIndexChanged)="onchange($event)"
-                                    row="0"
-                                    colSpan="2"></DropDown>
-                        </StackLayout>
-
-                        <StackLayout row="2" class="stack-item">
-                            <TextField class="input" 
-                                hint="Informe a quantidade do material" ngDefaultControl [(ngModel)]="residuo.quantidade"
-                                returnKeyType="next"
-                                ></TextField>
-                        </StackLayout>
-
-                        <StackLayout row="3" class="stack-item">
-                            <Button text="Adicionar material" 
-                                (tap)="addMaterial()" class="btn btn-primary m-t-20"></Button>
-                        </StackLayout>
-                    </GridLayout>
+    <GridLayout rows="*, auto, auto">
+        <GridLayout row="0" rows="auto, auto, auto" style="align-self: flex-start;">
+            <GridLayout rows="auto, auto" columns="auto, auto" horizontalAlignment="center" *ngIf="!visualizandoSolicitacao" orientation="vertical" style="width: 80%">
+                <StackLayout style="width: 50%" row="0" column="0">
+                    <Button text="Adicionar resíduo" 
+                        (tap)="addResiduo()" class="card-container"></Button>
                 </StackLayout>
-                <RadListView row="1" [items]="solicitacao.residuos" verticalAlignment="center" height="40%" [class.visible]="listLoaded">
-                    <ng-template tkListItemTemplate let-residuo="item">
-                        <StackLayout orientation="vertical">
-                            <GridLayout rows="auto, auto, auto, auto">
-                                <StackLayout row="0">
-                                    <TextField class="input" hint="Descrição do material" 
-                                        autocorrect="true"
-                                        ngDefaultControl [(ngModel)]="residuo.descricao"
-                                        returnKeyType="next" ></TextField>
-                                    <StackLayout class="hr-light m-b-5"></StackLayout>
-                                </StackLayout>
-                
-                                <StackLayout row="1">
-                                    <TextField class="input" 
-                                        hint="Selecione a unidade de medida" ngDefaultControl [(ngModel)]="residuo.unidadeMedida"
-                                        returnKeyType="next"
-                                        ></TextField>
-                                    <StackLayout class="hr-light m-b-5"></StackLayout>
-                                </StackLayout>
-
-                                <StackLayout row="2">
-                                    <TextField class="input" 
-                                        hint="Informe a quantidade do material" ngDefaultControl [(ngModel)]="residuo.quantidade"
-                                        returnKeyType="next"
-                                        ></TextField>
-                                    <StackLayout class="hr-light m-b-5"></StackLayout>
-                                </StackLayout>
-
-                                <StackLayout row="3">
-                                    <Button text="Adicionar material" 
-                                        (tap)="addMaterial()" class="btn btn-primary m-t-20"></Button>
-                                </StackLayout>
-                            </GridLayout>
-                        </StackLayout>
-                    </ng-template>
-        
-                </RadListView>
-                <ActivityIndicator rowSpan="3" ></ActivityIndicator>
+                <StackLayout style="width: 50%" row="0" column="1"> 
+                    <Button text="Finalizar" 
+                        (tap)="submit()" class="card-container"></Button>
+                </StackLayout>
             </GridLayout>
-        </PreviousNextView>
+            <StackLayout row="2" *ngIf="!visibleListaResiduos" style="align-self: center; width: 90%;">
+                <Label textWrap="true" style="font-size: 15px; margin-top: 20px" text="Sua solicitação não possui nenhum resíduo" className="bold"></Label>
+                <Label textWrap="true" style="font-size: 15px; margin-top: 10px" text="Pressione o botão 'Adicionar Resíduo' para começar" className="bold"></Label>
+                <Label textWrap="true" style="font-size: 15px; margin-top: 10px" text="Depois de inserir os resíduos, basta pressionar o botão 'Finalizar' e sua solicitação estará aberta" 
+                    className="bold"></Label>
+            </StackLayout>
+            <RadListView row="2" [items]="listaItems" verticalAlignment="center" height="50%" width="90%" id="list-view"
+                *ngIf="visibleListaResiduos" (itemTap)="onItemTap($event)" 
+                selectionBehavior="None" (itemSwipeProgressEnded)="onSwipeCellFinished($event)"
+                (itemSwipeProgressStarted)="onSwipeCellStarted($event)" (itemSwipeProgressChanged)="onCellSwiping($event)" swipeActions="true">
+                <ListViewLinearLayout tkListViewLayout scrollDirection="Vertical" itemInsertAnimation="Slide" itemDeleteAnimation="Slide"></ListViewLinearLayout>
+                <ng-template tkListItemTemplate let-item="item">
+                    <GridLayout rows="*, auto" class="card-container" > 
+                        <Label class="lbl-no-border h2" row="0" text="Resíduo: {{item.descricao}}"></Label>
+                        <Label class="lbl-no-border h3" row="1" text="Quantidade: {{item.quantidade}} {{item.unidadeMedida ? 'UN' : 'KG'}}"></Label>
+                    </GridLayout>
+                </ng-template>
+                <GridLayout *tkListItemSwipeTemplate columns="auto, *, auto" class="gridLayoutLayout">
+                    <StackLayout id="mark-view" col="2" class="markViewStackLayout" (tap)="onLeftSwipeClick($event)">
+                       <Label class="swipeTemplateLabel" verticalAlignment="center" horizontalAlignment="center"></Label>
+                   </StackLayout>
+                   <StackLayout id="delete-view" col="0" class="deleteViewStackLayout" (tap)="onRightSwipeClick($event)">
+                       <Label text="delete" class="swipeTemplateLabel" verticalAlignment="center" horizontalAlignment="center"></Label>
+                   </StackLayout>
+               </GridLayout>
+            </RadListView>
+        </GridLayout>
 
-        <Button text="Abrir solicitação" 
-            (tap)="submit()" class="btn btn-primary m-t-20"></Button>
-    </StackLayout>
-
-    <Label class="login-label sign-up-label" (tap)="RetornarAoMenu()">
-        <FormattedString>
-            <Span text="Retornar ao menu" class="bold"></Span>
-        </FormattedString>
-    </Label>
+        <Label row="1" style="bottom: 0;" class="login-label sign-up-label" (tap)="RetornarAoMenu()">
+            <FormattedString>
+                <Span [text]="visualizandoSolicitacao ? 'Retornar para solicitações' : 'Retornar ao menu'" class="bold"></Span>
+            </FormattedString>
+        </Label>
+    </GridLayout>
 </FlexboxLayout>

@@ -9,13 +9,15 @@
     <StackLayout class="form">
 
         <PreviousNextView>
-            <GridLayout rows="auto, auto, auto">
+            <GridLayout rows="auto">
                 <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>
             </GridLayout>
         </PreviousNextView>
-
-        <Button text="Abrir uma nova solicitação" (tap)="novaSolicitaoClick()"></Button>
-        <Button text="Listar solicitações" (tap)="listarSolicitacoesClick()"></Button>
+        <Label class="h1" style="align-self: flex-start;" text="Bem vindo, {{user.nome}}"></Label>
+        <StackLayout style="align-self: center;">
+            <Button class="card-container" text="Nova solicitação" (tap)="novaSolicitaoClick()"></Button>
+            <Button class="card-container" text="Listar solicitações" (tap)="listarSolicitacoesClick()"></Button>
+        </StackLayout>
         
         <Span text="Sair"></Span>
     </StackLayout>

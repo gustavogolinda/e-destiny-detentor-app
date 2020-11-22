@@ -1,0 +1,60 @@
+<FlexboxLayout class="page">
+    <ActionBar class="action-bar" style="background-color: transparent; border: 0; box-shadow: none !important;" flat="true">
+        <!-- <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+        <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+            ios.position="left">
+        </ActionItem> -->
+        <Image class="action-bar-logo" src="~/assets/logo-preta.png"></Image>
+    </ActionBar>
+    <StackLayout class="form">
+        <PreviousNextView>
+            <GridLayout rows="auto, auto, auto, auto, auto">
+                <StackLayout row="0" class="input-field">
+                    <TextField class="input" hint="Descrição do material" 
+                        autocorrect="true" [editable]="habilitaEdicao"
+                        autocapitalizationType="none" ngDefaultControl [(ngModel)]="residuo.descricao"
+                        returnKeyType="next" ></TextField>
+                    <StackLayout class="hr-light m-b-5"></StackLayout>
+                </StackLayout>
+
+                <StackLayout row="1" class="input-field">
+                    <DropDown #dd
+                        hint="Selecione uma unidade de medida" [selectedIndex]="selectedIndexUnidadeMedida"
+                        [items]="unidadesMedida" class="input drop-down" [editable]="habilitaEdicao"
+                        (selectedIndexChanged)="onChangeMedida($event)" ></DropDown>
+                    <StackLayout class="hr-light m-b-5"></StackLayout>
+                </StackLayout>
+                
+                <StackLayout row="2" class="input-field">
+                    <DropDown #cc
+                        hint="Selecione a categoria" [selectedIndex]="selectedIndexCategoria"
+                        [items]="categorias" class="input drop-down" [editable]="habilitaEdicao"
+                        (selectedIndexChanged)="onChangeCategoria($event)" ></DropDown>
+                    <StackLayout class="hr-light m-b-5"></StackLayout>
+                </StackLayout>
+
+                <StackLayout row="3">
+                    <TextField class="label-solicitacao-qtd" #qtd android:inputType="number" keyboardType="number" maxLenght="3" min="0"
+                        hint="0" ngDefaultControl [(ngModel)]="residuo.quantidade" col=1 [editable]="habilitaEdicao"
+                    ></TextField>
+                </StackLayout>
+                <ActivityIndicator rowSpan="3" ></ActivityIndicator>
+            </GridLayout>
+        </PreviousNextView>
+        <GridLayout rows="auto" columns="auto,auto" horizontalAlignment="center" orientation="vertical" style="width: 90%" *ngIf="!visualizandoSolicitacao">
+            <StackLayout row="0" column="0" style="width: 50%;">
+                <Button [text]="editandoResiduo ? 'Salvar' : 'Adicionar'" [isEnabled]="!processing" 
+                    (tap)="submit()" class="card-container btn"></Button>
+            </StackLayout>
+            <StackLayout row="0" column="1" style="width: 50%;"> 
+                <Button text="Cancelar" [isEnabled]="!processing" 
+                    (tap)="cancel()" class="card-container btn"></Button>
+            </StackLayout>
+        </GridLayout>
+    </StackLayout>
+    <Label style="bottom: 0; background-color: transparent !important;" *ngIf="visualizandoSolicitacao" class="login-label sign-up-label" (tap)="Voltar()">
+        <FormattedString>
+            <Span text="Voltar" class="bold"></Span>
+        </FormattedString>
+    </Label>
+</FlexboxLayout>

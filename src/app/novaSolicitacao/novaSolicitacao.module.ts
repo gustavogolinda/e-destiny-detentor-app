@@ -1,6 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
-import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
 import { NovaSolicitacaoRoutingModule } from "./novaSolicitacao-routing.module";
 import { NovaSolicitacaoComponent } from "./novaSolicitacao.component";
@@ -8,8 +8,8 @@ import { NovaSolicitacaoComponent } from "./novaSolicitacao.component";
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        NativeScriptFormsModule,
-        NovaSolicitacaoRoutingModule
+        NovaSolicitacaoRoutingModule,
+        NativeScriptUIListViewModule
     ],
     declarations: [
         NovaSolicitacaoComponent
@@ -18,4 +18,4 @@ import { NovaSolicitacaoComponent } from "./novaSolicitacao.component";
         NO_ERRORS_SCHEMA
     ]
 })
-export class FeaturedModule { }
+export class NovaSolicitacaoModule { }

@@ -3,14 +3,15 @@ import { User } from "../usuario/usuario.model";
 
 export class Solicitacao {
     id: Number;
-    usuario: User;
+    detentor: User;
     residuos: Residuo[];
     situacao: String;
     justificativa: String;
+    dtSolicitacao: Date;
 
     constructor(){
         this.id = 0;
-        this.usuario = new User;
+        this.detentor = new User;
         this.residuos = [];
         this.situacao = '';
         this.justificativa = '';

@@ -1,8 +1,31 @@
-.stack-form {
-  background-color: cornsilk;
-  height: 30%;
+button {
+    width: 80%
+};
+
+.instrucao {
+    font-size: 80px;
+    /* width: 90%; */
 }
 
-.stack-item {
-  margin-bottom: 0;
+.markViewStackLayout {
+    background-color: transparent;
+    padding: 16
+}
+
+.deleteViewStackLayout {
+    background-color: rgb(255, 101, 101);
+    padding: 16;
+}
+
+.swipeTemplateLabel {
+    size: 20;
+}
+
+.date-picker {
+    background-color: olivedrab;
+    border-color: burlywood;
+    border-width: 2;
+    border-radius: 10;
+    color: whitesmoke;
+    vertical-align: middle;
 }

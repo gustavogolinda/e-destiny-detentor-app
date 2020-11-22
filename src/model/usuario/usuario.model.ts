@@ -1,17 +1,18 @@
+import { Endereco } from "../endereco/endereco.model";
+
 export class User {
     id: Number;
     nome: string;
     email: string;
     senha: string;
     telefone: string;
-    confirmaSenha: string;
+    endereco: Endereco;
 
     constructor(){
-        this.id = 0;
         this.nome = '';
         this.email = '';
         this.senha = '';
         this.telefone = '';
-        this.confirmaSenha = '';
+        this.endereco = new Endereco();
     }
 }

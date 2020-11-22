@@ -9,48 +9,32 @@
     <StackLayout class="form">
 
         <PreviousNextView>
-            <GridLayout rows="auto,auto,auto,auto,auto">
-                <StackLayout row="0" class="input">
-                    <TextField class="input" *ngIf="!isLoggingIn" hint="Informe seu nome completo" 
-                        [isEnabled]="!processing"
-                        autocapitalizationType="words" [(ngModel)]="user.nome"
-                        returnKeyType="next" (returnPress)="focusEmail()"></TextField>
-                </StackLayout>
-
-                <StackLayout row="1" class="input">
-                    <TextField #email class="input" hint="Email" [isEnabled]="!processing"
-                        keyboardType="email" autocorrect="false"
-                        autocapitalizationType="none" [(ngModel)]="user.email"
-                        returnKeyType="next" (returnPress)="focusPassword()"></TextField>
-                </StackLayout>
-
-                <StackLayout row="2" class="input">
-                    <TextField #password class="input" [isEnabled]="!processing"
-                        hint="Senha" secure="true" [(ngModel)]="user.senha"
-                        [returnKeyType]="isLoggingIn ? 'done' : 'next'"
-                        (returnPress)="isLoggingIn ? focusConfirmPassword() : validarSenhaPreenchida()"></TextField>
-                    <StackLayout class="hr-light m-b-5"></StackLayout>
-                </StackLayout>
-
-                <StackLayout row="3" *ngIf="!isLoggingIn" class="input">
-                    <TextField #confirmPassword class="input" secure="true" [isEnabled]="!processing"
-                        hint="Confirme sua senha" [(ngModel)]="user.confirmaSenha" (returnPress)="focusTelefone()"
-                        returnKeyType="next"></TextField>
-                    <StackLayout class="hr-light m-b-5"></StackLayout>
-                </StackLayout>
-
-                <StackLayout row="4" *ngIf="!isLoggingIn" class="input-field">
-                    <TextField #telefone class="input" [isEnabled]="!processing"
-                        hint="Informe seu telefone" [(ngModel)]="user.telefone"
-                        returnKeyType="done"></TextField>
-                    <StackLayout class="hr-light m-b-5"></StackLayout>
+            <GridLayout rows="auto">
+                <StackLayout row="0">
+                    <GridLayout rows="auto,auto,auto"> 
+                        <StackLayout row="0" class="input">
+                            <TextField #email class="input" hint="Email" [editable]="!processing"
+                                keyboardType="email" autocorrect="false"
+                                autocapitalizationType="none" [(ngModel)]="user.email"
+                                returnKeyType="next" (returnPress)="focusPassword()"></TextField>
+                        </StackLayout>
+        
+                        <StackLayout row="1" class="input">
+                            <TextField #password class="input" [editable]="!processing"
+                                hint="Senha" secure="true" [(ngModel)]="user.senha"
+                                [returnKeyType]="isLoggingIn ? 'done' : 'next'" autocorrect="false"
+                                (returnPress)="isLoggingIn ? focusConfirmPassword() : validarSenhaPreenchida()"></TextField>
+                            <StackLayout class="hr-light m-b-5"></StackLayout>
+                        </StackLayout>
+                        
+                    </GridLayout>   
                 </StackLayout>
                 <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>
             </GridLayout>
         </PreviousNextView>
 
         <Button [text]="isLoggingIn ? 'Login' : 'Cadastrar'" [isEnabled]="!processing"
-            (tap)="submit()" class="btn btn-primary m-t-20"></Button>
+            (tap)="submit()" class="btn btn-primary m-t-20 card-container"></Button>
         <Label *ngIf="isLoggingIn" text="Esqueceu sua senha?" class="login-label"
             (tap)="forgotPassword()"></Label>
     </StackLayout>
