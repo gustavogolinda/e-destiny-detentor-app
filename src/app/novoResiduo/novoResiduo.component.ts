@@ -48,7 +48,12 @@ export class NovoResiduoComponent implements OnInit {
         if (this.editandoResiduo){
             this.residuo = this.solicitacao.residuos[this.indexResiduo];
             this.selectedIndexCategoria = this.categorias.indexOf(this.residuo.categoria.descricao);
-            this.selectedIndexUnidadeMedida = this.residuo.unidadeMedida;
+            if (this.residuo.unidadeMedida == 'KG'){
+                this.selectedIndexUnidadeMedida = 0;
+            } 
+            if (this.residuo.unidadeMedida == 'QUANTIDADE') {
+                this.selectedIndexUnidadeMedida = 1;
+            }
             console.log(this.residuo.unidadeMedida);
         }else {
             this.residuo = new Residuo();

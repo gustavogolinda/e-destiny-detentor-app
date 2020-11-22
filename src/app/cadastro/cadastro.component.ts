@@ -106,7 +106,7 @@ export class CadastroComponent implements AfterViewInit, OnInit {
             this.routerExtensions.navigate(['/home'], navigationExtras);
         })
         .catch(erro => {
-            this.utils.alert("O usuário e/ou senha informados não correspondem a nenhuma conta existente.");
+            this.utils.alert("Ocorreu um erro ao tentar criar a sua conta. Tente novamente após alguns minutos.");
         });
     }
 

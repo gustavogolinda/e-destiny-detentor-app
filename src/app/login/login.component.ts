@@ -93,6 +93,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
                     });
             }
         });
+        this.processing = false;
     }
 
     focusPassword() {
